@@ -99,6 +99,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+info.onCountdownEnd(function () {
+    game.gameOver(true)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -207,6 +210,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Evil_Coin, function (sprite,
     info.changeScoreBy(5)
     music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
     sprites.destroy(coin_evil, effects.fire, 100)
+    sprites.destroy(projectile, effects.ashes, 100)
     coin_goodevil = randint(0, 2)
     if (coin_goodevil == 2) {
         coin_evil = sprites.create(img`
@@ -408,9 +412,9 @@ coin.y += randint(-50, 50)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
 game.setGameOverScoringType(game.ScoringType.HighScore)
-game.setGameOverPlayable(false, music.createSong(hex`0078000408020205001c000f0a006400f4010a0000040000000000000000000000000000000002120000001000012010002000011d20004000011907001c00020a006400f401640000040000000000000000000000000000000003080020004000030d1114`), false)
 game.setGameOverEffect(true, effects.confetti)
 game.setGameOverPlayable(true, music.createSong(hex`0078000408020205001c000f0a006400f4010a0000040000000000000000000000000000000002310000000200011902000400011b04000600011d06000800011e08000a0001200a000c0001220c000e0001240e00180002252907001c00020a006400f40164000004000000000000000000000000000000000307000e001800020d11`), false)
 game.setGameOverPlayable(true, music.melodyPlayable(music.bigCrash), false)
+game.setGameOverPlayable(false, music.createSong(hex`0078000408020205001c000f0a006400f4010a0000040000000000000000000000000000000002120000001000012010002000011d20004000011907001c00020a006400f401640000040000000000000000000000000000000003080020004000030d1114`), false)
 game.setGameOverMessage(true, "Nice job! See if you can beat the top scorer!")
 game.setGameOverMessage(false, "Try again? :(")
